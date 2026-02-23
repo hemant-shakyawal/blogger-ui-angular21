@@ -1,1 +1,105 @@
-<p>add-category works!</p>
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="mb-0">Add New Category</h2>
+            <p class="text-muted small mt-1">Create a new category for your blog posts</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <!-- Name Field -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">
+                                Category Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="name" formControlName="name"
+                                placeholder="e.g., Technology" (blur)="generateUrlHandle()" />
+                            <div class="form-text">Enter a descriptive name for your category</div>
+                            @if(form.get('name')?.hasError('required') && form.get('name')?.touched){
+                            <div class="invalid-feedback d-block">
+                                Category name is required
+                            </div>
+                            }
+                            @if(form.get('name')?.hasError('minlength') && form.get('name')?.touched){
+                            <div class="invalid-feedback d-block">
+                                Category name must be at least 2 characters
+                            </div>
+                            }
+                        </div>
+
+                        <!-- URL Handle Field -->
+                        <div class="mb-3">
+                            <label for="urlHandle" class="form-label">
+                                URL Handle
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">/</span>
+                                <input type="text" class="form-control" id="urlHandle" formControlName="urlHandle"
+                                    placeholder="technology" />
+                            </div>
+                            <div class="form-text">URL-friendly slug (lowercase, hyphens only). Leave empty to
+                                auto-generate from name.</div>
+                            @if(form.get('urlHandle')?.hasError('required') && form.get('urlHandle')?.touched){
+                            <div class="invalid-feedback d-block">
+                                URL handle is required
+                            </div>
+                            }
+                            @if(form.get('urlHandle')?.hasError('pattern') && form.get('urlHandle')?.touched){
+                            <div class="invalid-feedback d-block">
+                                URL handle can only contain lowercase letters, numbers, and hyphens
+                            </div>
+                            }
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-2 d-sm-flex pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                [disabled]="form.invalid || isSubmitting">
+                                @if(isSubmitting){
+                                <span class="spinner-border spinner-border-sm me-2" role="status"
+                                    aria-hidden="true"></span>
+                                Saving...
+                                }@else{
+                                <i class="bi bi-check-circle"></i> Save Category
+                                }
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-lg" (click)="onCancel()"
+                                [disabled]="isSubmitting">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Card -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm bg-light">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Preview</h5>
+                    <div class="preview-section">
+                        <p class="text-muted small mb-2">How your category will appear:</p>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-info text-dark" style="font-size: 1rem">
+                                {{ form.get('name')?.value || 'Category Name' }}
+                            </span>
+                        </div>
+                        <div class="mt-4 pt-3 border-top">
+                            <p class="text-muted small mb-1">URL:</p>
+                            <code class="d-block text-dark" style="font-size: 0.9rem">
+                /{{ form.get('urlHandle')?.value || 'url-handle' }}
+              </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

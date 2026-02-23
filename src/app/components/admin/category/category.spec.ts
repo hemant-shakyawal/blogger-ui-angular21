@@ -1,23 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddCategory } from './add-category';
-import { provideRouter,  } from '@angular/router';
 
-describe('AddCategory', () => {
-  let component: AddCategory;
-  let fixture: ComponentFixture<AddCategory>;
+import { Category } from './category';
+import { provideRouter } from '@angular/router';
+
+describe('Category', () => {
+  let component: Category;
+  let fixture: ComponentFixture<Category>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddCategory],
+      imports: [Category],
       providers: [
-        provideRouter([]),
-       
+        provideRouter([])
       ]
-
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(AddCategory);
+    fixture = TestBed.createComponent(Category);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
