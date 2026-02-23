@@ -33,6 +33,13 @@ export const routes: Routes = [
                     import('./components/admin/add-category/add-category')
                         .then(c => c.AddCategory),
             },
+            {
+                path: 'category',
+                loadComponent: () =>
+                    import('./components/admin/category/category')
+                        .then(c => c.Category),
+            },
+
         ],
     },
 ];
