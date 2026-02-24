@@ -39,6 +39,12 @@ export const routes: Routes = [
                     import('./components/admin/category/category')
                         .then(c => c.Category),
             },
+            {
+                path: 'edit-category/:id',
+                loadComponent: () =>
+                    import('./components/admin/edit-category/edit-category')
+                        .then(c => c.EditCategory),
+            },
 
         ],
     },
