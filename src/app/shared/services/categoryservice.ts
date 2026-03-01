@@ -10,6 +10,7 @@ export class Categoryservice {
   http = inject(HttpClient);
   addCategoryStatus = signal<'idle' | 'loading' | 'success' | 'error'>('idle');
   updateCategoryStatus = signal<'idle' | 'loading' | 'success' | 'error'>('idle');
+  deleteCategoryStatus = signal<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   createCategory(category: CategoryModel) {
     this.addCategoryStatus.set('loading');
@@ -38,6 +39,17 @@ export class Categoryservice {
       },
       error: () => {
         this.updateCategoryStatus.set('error');
+      }
+    });
+  }
+  deleteCategory(id: string) {
+    this.deleteCategoryStatus.set('loading');
+    this.http.delete<void>(`${environment.apiUrl}/categories/${id}`).subscribe({
+      next: () => {
+        this.deleteCategoryStatus.set('success');
+      },
+      error: () => {
+        this.deleteCategoryStatus.set('error');
       }
     });
   }

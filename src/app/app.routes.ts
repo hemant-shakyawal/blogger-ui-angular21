@@ -45,6 +45,13 @@ export const routes: Routes = [
                     import('./components/admin/edit-category/edit-category')
                         .then(c => c.EditCategory),
             },
+          
+            {
+                path: 'delete-category/:id',
+                loadComponent: () =>
+                    import('./components/admin/delete-category/delete-category')
+                        .then(c => c.DeleteCategory),
+            },
 
         ],
     },
