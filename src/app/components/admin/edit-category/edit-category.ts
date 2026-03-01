@@ -35,11 +35,13 @@ export class EditCategory {
     effect(() => {
 
       if (this.categoryService.updateCategoryStatus() === 'success') {
+        this.categoryService.updateCategoryStatus.set('idle');
         this.router.navigate(['/dashboard', 'category']);
       }
       if (this.categoryService.updateCategoryStatus() === 'error') {
         this.isSubmitting = false;
         console.error('Failed to update category. Please try again.');
+        this.categoryService.updateCategoryStatus.set('idle')
       }
     })
 
@@ -61,7 +63,7 @@ export class EditCategory {
     this.router.navigate(['/dashboard', 'category']);
   }
 
- 
+
 
   generateUrlHandle() {
     const name = this.form.get('name')?.value;
