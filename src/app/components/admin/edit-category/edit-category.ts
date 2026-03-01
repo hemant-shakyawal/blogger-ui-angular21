@@ -60,6 +60,9 @@ export class EditCategory {
   onCancel() {
     this.router.navigate(['/dashboard', 'category']);
   }
+
+ 
+
   generateUrlHandle() {
     const name = this.form.get('name')?.value;
     if (name) {
