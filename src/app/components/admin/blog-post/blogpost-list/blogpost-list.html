@@ -11,12 +11,91 @@
     </div>
 
 
-    <!-- <div class="d-flex justify-content-center py-5">
+    @if(isLodading()){
+    <div class="d-flex justify-content-center py-5">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-    </div> -->
+    </div>
 
+    }@else{
+    @if(isError()){
+    <div class="alert alert-danger" role="alert">
+        Error loading BlogPosts: {{ isError()?.message }}
+    </div>
+    }@else{
+
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Title</th>
+                            <th>Short Description</th>
+                            <th>Published</th>
+                            <th>Status</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(blogPost of values(); track blogPost.id){
+
+                        <tr>
+                            <!-- Title -->
+                            <td class="ps-4">
+                                <div class="fw-semibold text-truncate" style="max-width: 250px;">
+                                    {{ blogPost.title }}
+                                </div>
+                                <small class="text-muted">
+                                    {{ blogPost.urlHandle }}
+                                </small>
+                            </td>
+
+                            <!-- Short Description -->
+                            <td>
+                                <div class="text-muted text-truncate" style="max-width: 300px;">
+                                    {{ blogPost.shortDescription }}
+                                </div>
+                            </td>
+
+                            <!-- Publish Date -->
+                            <td>
+                                {{ blogPost.publishDate | date:'mediumDate' }}
+                            </td>
+
+                            <!-- Visibility -->
+                            <td>
+                                <span class="badge" [ngClass]="blogPost.isVisible ? 'bg-success' : 'bg-secondary'">
+                                    {{ blogPost.isVisible ? 'Visible' : 'Hidden' }}
+                                </span>
+                            </td>
+
+                            <!-- Actions -->
+                            <td class="text-end pe-4">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary"
+                                        [routerLink]="['/dashboard','edit-blog-post', blogPost.id]">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger"
+                                        [routerLink]="['/dashboard','delete-blog-post', blogPost.id]">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    }
+    }
 
 
 </div>
