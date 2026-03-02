@@ -20,15 +20,17 @@
                             </label>
                             <input type="text" class="form-control" id="name" formControlName="name"
                                 placeholder="e.g., Technology" (blur)="generateUrlHandle()" />
-                            <div class="form-text">Enter a descriptive name for your category</div>
+                            <div class="form-text">Enter a descriptive name for your category (minimum 2 characters)
+                            </div>
                             @if(form.get('name')?.hasError('required') && form.get('name')?.touched){
                             <div class="invalid-feedback d-block">
-                                Category name is required
+                                <i class="bi bi-exclamation-circle"></i> Category name is required
                             </div>
                             }
                             @if(form.get('name')?.hasError('minlength') && form.get('name')?.touched){
                             <div class="invalid-feedback d-block">
-                                Category name must be at least 2 characters
+                                <i class="bi bi-exclamation-circle"></i> Category name must be at least 2 characters
+                                long
                             </div>
                             }
                         </div>
@@ -40,20 +42,21 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
-                                <span class="input-group-text">/</span>
+                                <span class="input-group-text">/category/</span>
                                 <input type="text" class="form-control" id="urlHandle" formControlName="urlHandle"
                                     placeholder="technology" />
                             </div>
-                            <div class="form-text">URL-friendly slug (lowercase, hyphens only). Leave empty to
-                                auto-generate from name.</div>
+                            <div class="form-text">URL-friendly slug (lowercase letters, numbers, and hyphens only).
+                                Examples: tech, web-design</div>
                             @if(form.get('urlHandle')?.hasError('required') && form.get('urlHandle')?.touched){
                             <div class="invalid-feedback d-block">
-                                URL handle is required
+                                <i class="bi bi-exclamation-circle"></i> URL handle is required
                             </div>
                             }
                             @if(form.get('urlHandle')?.hasError('pattern') && form.get('urlHandle')?.touched){
                             <div class="invalid-feedback d-block">
-                                URL handle can only contain lowercase letters, numbers, and hyphens
+                                <i class="bi bi-exclamation-circle"></i> URL handle can only contain lowercase letters,
+                                numbers, and hyphens (no spaces or special characters)
                             </div>
                             }
                         </div>
