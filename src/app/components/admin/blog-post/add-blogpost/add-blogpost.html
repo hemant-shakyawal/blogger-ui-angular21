@@ -1,0 +1,222 @@
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="mb-0">Add New Blog Post</h2>
+            <p class="text-muted small mt-1">Create a new blog post entry</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <!-- Title Field -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label">
+                                Title
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="title" formControlName="title"
+                                placeholder="Enter post title" />
+                            <div class="form-text">A concise, descriptive title for the blog post (10-100 characters)
+                            </div>
+                            @if(form.get('title')?.hasError('required') && form.get('title')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Title is required
+                            </div>
+                            }
+                            @if(form.get('title')?.hasError('minlength') && form.get('title')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Title must be at least 10 characters long
+                            </div>
+                            }
+                            @if(form.get('title')?.hasError('maxlength') && form.get('title')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Title must not exceed 100 characters
+                            </div>
+                            }
+                        </div>
+
+                        <!-- Short Description Field -->
+                        <div class="mb-3">
+                            <label for="shortDescription" class="form-label">
+                                Short Description
+                                <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control" id="shortDescription" formControlName="shortDescription"
+                                rows="3" placeholder="Brief summary"></textarea>
+                            <div class="form-text">A brief summary of your blog post (10-100 characters)</div>
+                            @if(form.get('shortDescription')?.hasError('required') &&
+                            form.get('shortDescription')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Short description is required
+                            </div>
+                            }
+                            @if(form.get('shortDescription')?.hasError('minlength') &&
+                            form.get('shortDescription')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Short description must be at least 10
+                                characters long
+                            </div>
+                            }
+                            @if(form.get('shortDescription')?.hasError('maxlength') &&
+                            form.get('shortDescription')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Short description must not exceed 100
+                                characters
+                            </div>
+                            }
+                        </div>
+
+                        <!-- Content Field -->
+                        <div class="mb-3">
+                            <label for="content" class="form-label">
+                                Content
+                                <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control" id="content" formControlName="content" rows="5"
+                                placeholder="Enter full content"></textarea>
+                            <div class="form-text">The main content of your blog post (minimum 10 characters)</div>
+                            @if(form.get('content')?.hasError('required') &&
+                            form.get('content')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Content is required
+                            </div>
+                            }
+                            @if(form.get('content')?.hasError('minlength') &&
+                            form.get('content')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Content must be at least 10 characters long
+                            </div>
+                            }
+                        </div>
+
+
+
+                        <!-- Featured Image URL Field -->
+                        <div class="mb-3">
+                            <label for="featuredImageUrl" class="form-label">
+                                Featured Image URL
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="featuredImageUrl"
+                                formControlName="featuredImageUrl" placeholder="https://example.com/image.jpg" />
+                            <div class="form-text">URL to your featured image (maximum 200 characters)</div>
+                            @if(form.get('featuredImageUrl')?.hasError('required') &&
+                            form.get('featuredImageUrl')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Featured image URL is required
+                            </div>
+                            }
+                            @if(form.get('featuredImageUrl')?.hasError('maxlength') &&
+                            form.get('featuredImageUrl')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Featured image URL must not exceed 200
+                                characters
+                            </div>
+                            }
+                        </div>
+
+                        <!-- URL Handle Field -->
+                        <div class="mb-3">
+                            <label for="urlHandle" class="form-label">
+                                URL Handle
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">/blog/post/</span>
+                                <input type="text" class="form-control" id="urlHandle" formControlName="urlHandle"
+                                    placeholder="my-blog-post" />
+                            </div>
+                            <div class="form-text">URL-friendly slug (lowercase letters, numbers, and hyphens only.
+                                Example: my-blog-post)</div>
+                            @if(form.get('urlHandle')?.hasError('required') && form.get('urlHandle')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> URL handle is required
+                            </div>
+                            }
+                            @if(form.get('urlHandle')?.hasError('pattern') && form.get('urlHandle')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> URL handle can only contain lowercase letters,
+                                numbers, and hyphens (no spaces or special characters)
+                            </div>
+                            }
+                        </div>
+
+                        <!-- Publish Date Field -->
+                        <div class="mb-3">
+                            <label for="publishDate" class="form-label">
+                                Publish Date
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="date" class="form-control" id="publishDate" formControlName="publishDate" />
+                            <div class="form-text">Set the date when this blog post will be published</div>
+                            @if(form.get('publishDate')?.hasError('required') && form.get('publishDate')?.touched){
+                            <div class="invalid-feedback d-block">
+                                <i class="bi bi-exclamation-circle"></i> Publish date is required
+                            </div>
+                            }
+                        </div>
+
+                        <!-- Author Field -->
+                        <div class="mb-3">
+                            <label for="author" class="form-label">
+                                Author
+                            </label>
+                            <input type="text" class="form-control" id="author" formControlName="author"
+                                placeholder="Author name" />
+                        </div>
+
+                        <!-- Visibility Field -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="isVisible"
+                                formControlName="isVisible" />
+                            <label class="form-check-label" for="isVisible">
+                                Is Visible
+                            </label>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-2 d-sm-flex pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                [disabled]="form.invalid || isSubmitting">
+                                @if(isSubmitting){
+                                <span class="spinner-border spinner-border-sm me-2" role="status"
+                                    aria-hidden="true"></span>
+                                Saving...
+                                }@else{
+                                <i class="bi bi-check-circle"></i> Save Post
+                                }
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-lg" (click)="onCancel()"
+                                [disabled]="isSubmitting">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Card -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm bg-light">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Preview</h5>
+                    <div class="preview-section">
+                        <p class="text-muted small mb-2">How your post will appear:</p>
+                        <h4>{{ form.get('title')?.value || 'Post Title' }}</h4>
+                        <p>{{ form.get('shortDescription')?.value || 'Short description goes here' }}</p>
+                        <div class="mt-3">
+                            <p class="text-muted small mb-1">URL:</p>
+                            <code class="d-block text-dark" style="font-size: 0.9rem">
+                /{{ form.get('urlHandle')?.value || 'url-handle' }}
+              </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

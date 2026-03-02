@@ -45,7 +45,7 @@ export const routes: Routes = [
                     import('./components/admin/edit-category/edit-category')
                         .then(c => c.EditCategory),
             },
-          
+
             {
                 path: 'delete-category/:id',
                 loadComponent: () =>
@@ -53,6 +53,30 @@ export const routes: Routes = [
                         .then(c => c.DeleteCategory),
             },
 
+            {
+                path: 'blog-post',
+                loadComponent: () =>
+                    import('./components/admin/blog-post/blogpost-list/blogpost-list')
+                        .then(c => c.BlogpostList),
+            },
+            {
+                path: 'add-blog-post',
+                loadComponent: () =>
+                    import('./components/admin/blog-post/add-blogpost/add-blogpost')
+                        .then(c => c.AddBlogpost),
+            },
+            {
+                path: 'edit-blog-post/:id',
+                loadComponent: () =>
+                    import('./components/admin/blog-post/edit-blogpost/edit-blogpost')
+                        .then(c => c.EditBlogpost),
+            },
+            {
+                path: 'delete-blog-post/:id',
+                loadComponent: () =>
+                    import('./components/admin/blog-post/delete-blogpost/delete-blogpost')
+                        .then(c => c.DeleteBlogpost),
+            },
         ],
     },
 ];
