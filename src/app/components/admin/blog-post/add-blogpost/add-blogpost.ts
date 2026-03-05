@@ -4,19 +4,23 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { Router } from '@angular/router';
 import { Blogpostservice } from '../../../../shared/services/blogpostservice';
 import { BlogpostModel } from '../../../../shared/models/blogpost.model';
-
+import { MarkdownComponent } from 'ngx-markdown';
+import { Categoryservice } from '../../../../shared/services/categoryservice';
+import { Category } from '../../category/category';
 
 @Component({
   selector: 'app-add-blogpost',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MarkdownComponent],
   templateUrl: './add-blogpost.html',
   styleUrl: './add-blogpost.scss',
 })
 export class AddBlogpost {
   private blogpostService = inject(Blogpostservice);
+  private categoryService = inject(Categoryservice);
   private fb = inject(FormBuilder);
   private router = inject(Router);
-
+  private getAllCategoriesRef = this.categoryService.getAllCategories();
+  categoriesResponse = this.getAllCategoriesRef.value;
   form: FormGroup;
   isSubmitting = false;
 
@@ -33,6 +37,8 @@ export class AddBlogpost {
       ],
       author: [''],
       isVisible: [true],
+      categories: [[]]
+
     });
 
     effect(() => {
@@ -63,6 +69,7 @@ export class AddBlogpost {
       publishDate: blogValue.publishDate ? new Date(blogValue.publishDate) : new Date(),
       author: blogValue.author,
       isVisible: blogValue.isVisible,
+      categories: blogValue.categories || []
     };
 
 

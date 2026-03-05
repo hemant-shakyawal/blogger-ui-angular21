@@ -1,3 +1,5 @@
+import { CategoryModel } from "./category.model";
+
 export interface BlogpostModel {
     id?: number;
     title: string;
@@ -8,6 +10,7 @@ export interface BlogpostModel {
     publishDate: Date;
     author: string;
     isVisible: boolean;
+    categories: CategoryModel[];
 
 
 }
