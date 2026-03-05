@@ -6,7 +6,7 @@ import { Blogpostservice } from '../../../../shared/services/blogpostservice';
 import { BlogpostModel } from '../../../../shared/models/blogpost.model';
 import { MarkdownComponent } from 'ngx-markdown';
 import { Categoryservice } from '../../../../shared/services/categoryservice';
-import { Category } from '../../category/category';
+
 
 @Component({
   selector: 'app-add-blogpost',
