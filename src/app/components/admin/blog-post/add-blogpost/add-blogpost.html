@@ -91,7 +91,9 @@
                             </div>
                             }
                         </div>
-
+                        <div class="mb-3" style="max-height: 200px; overflow-y: auto;">
+                            <markdown [data]="form.controls['content']?.value"></markdown>
+                        </div>
 
 
                         <!-- Featured Image URL Field -->
@@ -100,6 +102,16 @@
                                 Featured Image URL
                                 <span class="text-danger">*</span>
                             </label>
+
+                            @if(form.controls['featuredImageUrl']?.value){
+                            <div class="mb-3">
+                                <img [src]="form.controls['featuredImageUrl']?.value" alt="Featured Image"
+                                    class="img-fluid rounded" style="max-height: 200px;" />
+                            </div>
+
+
+                            }
+
                             <input type="text" class="form-control" id="featuredImageUrl"
                                 formControlName="featuredImageUrl" placeholder="https://example.com/image.jpg" />
                             <div class="form-text">URL to your featured image (maximum 200 characters)</div>
@@ -175,6 +187,18 @@
                             <label class="form-check-label" for="isVisible">
                                 Is Visible
                             </label>
+                        </div>
+                        <!-- Category Field -->
+                        <div class=" mb-3">
+
+                            <label class="form-check-label" for="isVisible">
+                                Categories
+                            </label>
+                            <select class="form-select" formControlName="categories" multiple>
+                                @for(category of categoriesResponse(); track category.id){
+                                <option [value]="category.id">{{ category.name }}</option>
+                                }
+                            </select>
                         </div>
 
                         <!-- Form Actions -->
