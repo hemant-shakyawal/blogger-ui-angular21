@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditBlogpost } from './edit-blogpost';
+import { provideMarkdown } from 'ngx-markdown';
+import { provideRouter } from '@angular/router';
 
 describe('EditBlogpost', () => {
   let component: EditBlogpost;
@@ -8,13 +10,17 @@ describe('EditBlogpost', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditBlogpost]
+      imports: [EditBlogpost],
+      providers: [
+        provideRouter([]),
+        provideMarkdown(),
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EditBlogpost);
     component = fixture.componentInstance;
-   fixture.detectChanges();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
