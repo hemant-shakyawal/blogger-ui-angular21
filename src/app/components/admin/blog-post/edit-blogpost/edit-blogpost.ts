@@ -51,7 +51,7 @@ export class EditBlogpost {
 
       if (this.blogpostService.updateBlogpostStatus() === 'success') {
         this.blogpostService.updateBlogpostStatus.set('idle');
-        this.router.navigate(['/dashboard', 'blogpost']);
+        this.router.navigate(['/dashboard', 'blog-post']);
       }
       if (this.blogpostService.updateBlogpostStatus() === 'error') {
         this.isSubmitting = false;
@@ -86,7 +86,7 @@ export class EditBlogpost {
   }
 
   onCancel() {
-    this.router.navigate(['/dashboard', 'blogpost']);
+    this.router.navigate(['/dashboard', 'blog-post']);
   }
 
 
