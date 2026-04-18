@@ -1,1 +1,77 @@
-<p>home works!</p>
+<div class="home-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Our Blog</h1>
+            <p class="hero-subtitle">Discover amazing stories, insights, and perspectives from our community</p>
+        </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Posts</h2>
+                <p class="section-description">Stay updated with our most recent articles and insights</p>
+            </div>
+
+            @if(isLoding()){
+            <!-- Loading State -->
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Loading amazing blog posts...</p>
+            </div>
+            } @else {
+            <!-- Blog Posts Grid -->
+            <div class="blog-grid">
+                @for(blogPost of blogPostsResponse(); track blogPost.id){
+                <article class="blog-card">
+                    <!-- Featured Image -->
+                    <div class="card-image-wrapper">
+                        <img [src]="blogPost.featuredImageUrl" [alt]="blogPost.title" class="card-image" loading="lazy">
+                        <div class="card-overlay">
+                            <a [routerLink]="['/blog', blogPost.urlHandle]" class="read-more-overlay">Read Article</a>
+                        </div>
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="meta-date">{{ blogPost.publishDate | date:'MMM dd, yyyy' }}</span>
+                            @if(blogPost.author) {
+                            <span class="meta-author">By {{ blogPost.author }}</span>
+                            }
+                        </div>
+
+                        <h3 class="card-title">
+                            <a [routerLink]="['/blog', blogPost.urlHandle]" class="title-link">{{ blogPost.title }}</a>
+                        </h3>
+
+                        <p class="card-excerpt">{{ blogPost.shortDescription }}</p>
+
+                        <div class="card-footer">
+                            <a [routerLink]="['/blog', blogPost.urlHandle]" class="read-more-btn">
+                                Read More
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                }
+            </div>
+
+            <!-- Empty State -->
+            @if(!blogPostsResponse() || blogPostsResponse()?.length === 0) {
+            <div class="empty-state">
+                <div class="empty-icon">📝</div>
+                <h3 class="empty-title">No Blog Posts Yet</h3>
+                <p class="empty-description">Check back soon for amazing content!</p>
+            </div>
+            }
+            }
+        </div>
+    </section>
+</div>

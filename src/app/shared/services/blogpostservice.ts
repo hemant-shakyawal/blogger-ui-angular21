@@ -1,8 +1,8 @@
 
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, InputSignal, Signal, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { BlogpostModel } from '../models/blogpost.model';
-import { HttpClient, httpResource } from '@angular/common/http';
+import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +28,18 @@ export class Blogpostservice {
     return httpResource<BlogpostModel>(() => `${environment.apiUrl}/blogpost/${id}`);
   }
 
+  getBlogPostDetailsByUrlHandle(
+    urlHandle: Signal<string | null | undefined>
+  ): HttpResourceRef<BlogpostModel | undefined> {
+
+    return httpResource<BlogpostModel | undefined>(() => {
+      const handle = urlHandle();
+
+      if (!handle) return undefined;
+
+      return `${environment.apiUrl}/blogpost/${handle}`;
+    });
+  }
   updateBlogpost(post: BlogpostModel) {
     if (!post.id) return;
     this.updateBlogpostStatus.set('loading');
