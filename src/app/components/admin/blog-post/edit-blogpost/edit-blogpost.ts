@@ -5,18 +5,22 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { Categoryservice } from '../../../../shared/services/categoryservice';
 import { MarkdownComponent } from 'ngx-markdown';
+import { ImageSelector } from '../../../../shared/components/image-selector/image-selector';
+import { Imageselectorservice } from '../../../../shared/services/imageselectorservice';
 
 @Component({
   selector: 'app-edit-blogpost',
-  imports: [CommonModule, FormsModule, RouterModule, ReactiveFormsModule, MarkdownComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ReactiveFormsModule, MarkdownComponent, ],
   templateUrl: './edit-blogpost.html',
   styleUrl: './edit-blogpost.scss',
 })
 export class EditBlogpost {
+
   private route = inject(ActivatedRoute);
   id = this.route.snapshot.paramMap.get('id') ?? '';
   private blogpostService = inject(Blogpostservice);
   private categoryService = inject(Categoryservice);
+  private imageSelectorService = inject(Imageselectorservice);
   editBlogpostRef = this.blogpostService.getBlogpostById(this.id);
   editBlogpostResponse = this.editBlogpostRef.value;
 
@@ -79,6 +83,16 @@ export class EditBlogpost {
     this.form.controls['categories'].patchValue(this.editBlogpostResponse()?.categories || []);
   });
 
+  selectedImageEffectRef = effect(() => {
+    const selectedImageUrl = this.imageSelectorService.selectedImage();
+    if (selectedImageUrl) {
+      this.form.patchValue({ featuredImageUrl: selectedImageUrl });
+    }
+
+
+  });
+
+
   onSubmit() {
     const formValue = this.form.value;
     this.blogpostService.updateBlogpost({ ...formValue, id: this.id });
@@ -88,7 +102,9 @@ export class EditBlogpost {
   onCancel() {
     this.router.navigate(['/dashboard', 'blog-post']);
   }
-
+  openImageSelector() {
+    this.imageSelectorService.displayImageSelector();
+  }
 
 
   generateUrlHandle() {

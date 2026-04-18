@@ -1,0 +1,73 @@
+@if(showImageSelector()){
+<div class="image-selector-container ">
+    <button type="button" class="btn btn-primary btn-top-close" (click)="hideImageSelector()">X</button>
+
+    <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Image Selector</h5>
+
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-md-row flex-sm-column flex-wrap">
+
+                <div class="col-8 p-4">
+
+                    @if(isLoading()){
+                    <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
+
+
+
+                    }@else {
+
+                    <div class="d-flex flex-wrap overflow-auto">
+
+                        @for( image of images(); track image.id ){
+                        <div class="card m-2" style="width: 150px; cursor: pointer;" (click)="selectImage(image)">
+                            <img [src]="image.url" class="card-img-top" alt="{{image.title}}">
+                            <div class="card-body p-2">
+                                <p class="card-text text-truncate mb-0">{{image.title}}</p>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    }
+
+
+                </div>
+                <div class="col-4 p-4">
+                    <h5>Upload image</h5>
+                    <form [formGroup]="imageSelectionUpoadForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+
+                            <input class="form-control" type="file" id="formFile" accept="image/*"
+                                (change)="onFileSelected($event)">
+                        </div>
+                        <div class="mb-3">
+
+                            <input class="form-control" type="text" placeholder="file name" id="fileName"
+                                formControlName="name">
+                        </div>
+                        <div class="mb-3">
+
+                            <input class="form-control" type="text" placeholder="title" id="fileTitle"
+                                formControlName="title">
+                        </div>
+                        <div class="mb-3">
+
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+}
