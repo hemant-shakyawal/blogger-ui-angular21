@@ -6,6 +6,7 @@ import { Blogpostservice } from '../../../../shared/services/blogpostservice';
 import { BlogpostModel } from '../../../../shared/models/blogpost.model';
 import { MarkdownComponent } from 'ngx-markdown';
 import { Categoryservice } from '../../../../shared/services/categoryservice';
+import { Imageselectorservice } from '../../../../shared/services/imageselectorservice';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class AddBlogpost {
   private categoryService = inject(Categoryservice);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  imageSelectorService = inject(Imageselectorservice);
   private getAllCategoriesRef = this.categoryService.getAllCategories();
   categoriesResponse = this.getAllCategoriesRef.value;
   form: FormGroup;
@@ -53,6 +55,17 @@ export class AddBlogpost {
       }
     });
   }
+
+
+
+  selectedImageEffectRef = effect(() => {
+    const selectedImageUrl = this.imageSelectorService.selectedImage();
+    if (selectedImageUrl) {
+      this.form.patchValue({ featuredImageUrl: selectedImageUrl });
+    }
+
+
+  });
 
   onSubmit() {
     if (this.form.invalid) {

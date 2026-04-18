@@ -104,6 +104,11 @@
                             <label for="featuredImageUrl" class="form-label">
                                 Featured Image URL
                                 <span class="text-danger">*</span>
+                                <button type="button" class="btn btn-sm btn-outline-secondary ms-2"
+                                   (click)="openImageSelector()">
+                                    <i class="bi bi-image"></i> Select Image
+                                </button>
+
                             </label>
 
                             @if(form.controls['featuredImageUrl']?.value){
@@ -222,5 +227,9 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 </div>
+
+
