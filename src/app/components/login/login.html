@@ -11,7 +11,7 @@
             </div>
 
             <!-- Form -->
-            <form class="login-form">
+            <form class="login-form" [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
                 <!-- Email Field -->
                 <div class="form-group mb-4">
                     <label for="email" class="form-label">Email Address</label>
@@ -20,9 +20,16 @@
                             <i class="bi bi-envelope"></i>
                         </span>
                         <input type="email" class="form-control form-control-lg" id="email"
-                            placeholder="Enter your email" required />
+                            placeholder="Enter your email" required formControlName="email" />
                     </div>
                     <small class="form-text text-muted">We'll never share your email.</small>
+                    @if (emailFormControl.invalid && emailFormControl.touched) {
+                    @if (emailFormControl.errors?.['required']) {
+                    <div class="text-danger">Email is required</div>
+                    } @else if (emailFormControl.errors?.['email']) {
+                    <div class="text-danger">Please enter a valid email address</div>
+                    }
+                    }
                 </div>
 
                 <!-- Password Field -->
@@ -33,8 +40,11 @@
                             <i class="bi bi-lock"></i>
                         </span>
                         <input type="password" class="form-control form-control-lg" id="password"
-                            placeholder="Enter your password" required />
+                            placeholder="Enter your password" required formControlName="password" />
                     </div>
+                    @if (passwordFormControl.invalid && passwordFormControl.touched) {
+                    <div class="text-danger">Password is required</div>
+                    }
                 </div>
 
                 <!-- Remember & Forgot -->
@@ -52,6 +62,10 @@
                 <button type="submit" class="btn btn-login btn-lg w-100 mb-3">
                     <i class="bi bi-box-arrow-in-right"></i> Sign In
                 </button>
+
+                <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+                    {{ errorMessage }}
+                </div>
 
                 <!-- Divider -->
                 <div class="divider-container mb-3">
