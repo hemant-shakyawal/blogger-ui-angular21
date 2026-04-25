@@ -14,7 +14,7 @@ export class Blogpostservice {
 
   createBlogpost(post: BlogpostModel) {
     this.addBlogpostStatus.set('loading');
-    this.http.post<void>(`${environment.apiUrl}/blogpost`, post).subscribe({
+    this.http.post<void>(`${environment.apiUrl}/blogpost`, post, { withCredentials: true }).subscribe({
       next: () => this.addBlogpostStatus.set('success'),
       error: () => this.addBlogpostStatus.set('error'),
     });
@@ -43,7 +43,7 @@ export class Blogpostservice {
   updateBlogpost(post: BlogpostModel) {
     if (!post.id) return;
     this.updateBlogpostStatus.set('loading');
-    this.http.put<void>(`${environment.apiUrl}/blogpost/${post.id}`, post).subscribe({
+    this.http.put<void>(`${environment.apiUrl}/blogpost/${post.id}`, post, { withCredentials: true }).subscribe({
       next: () => this.updateBlogpostStatus.set('success'),
       error: () => this.updateBlogpostStatus.set('error'),
     });
@@ -51,7 +51,7 @@ export class Blogpostservice {
 
   deleteBlogpost(id: number | string) {
     this.deleteBlogpostStatus.set('loading');
-    this.http.delete<void>(`${environment.apiUrl}/blogpost/${id}`).subscribe({
+    this.http.delete<void>(`${environment.apiUrl}/blogpost/${id}`, { withCredentials: true }).subscribe({
       next: () => this.deleteBlogpostStatus.set('success'),
       error: () => this.deleteBlogpostStatus.set('error'),
     });

@@ -14,7 +14,7 @@ export class Categoryservice {
 
   createCategory(category: CategoryModel) {
     this.addCategoryStatus.set('loading');
-    this.http.post<void>(`${environment.apiUrl}/categories`, category).subscribe({
+    this.http.post<void>(`${environment.apiUrl}/categories`, category, { withCredentials: true }).subscribe({
       next: () => {
         this.addCategoryStatus.set('success');
       },
@@ -33,7 +33,7 @@ export class Categoryservice {
 
   updateCategory(category: CategoryModel) {
     this.updateCategoryStatus.set('loading');
-    this.http.put<void>(`${environment.apiUrl}/categories/${category.id}`, category).subscribe({
+    this.http.put<void>(`${environment.apiUrl}/categories/${category.id}`, category,{ withCredentials: true }).subscribe({
       next: () => {
         this.updateCategoryStatus.set('success');
       },
@@ -44,7 +44,7 @@ export class Categoryservice {
   }
   deleteCategory(id: string) {
     this.deleteCategoryStatus.set('loading');
-    this.http.delete<void>(`${environment.apiUrl}/categories/${id}`).subscribe({
+    this.http.delete<void>(`${environment.apiUrl}/categories/${id}`, { withCredentials: true }).subscribe({
       next: () => {
         this.deleteCategoryStatus.set('success');
       },

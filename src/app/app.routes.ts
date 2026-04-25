@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
 import { Layout } from './shared/components/layout/layout';
 import { Dashboard } from './components/admin/dashboard/dashboard';
+import { authGuard } from './shared/components/auth/auth-guard';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -31,7 +32,14 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: Dashboard,
+        canActivate: [authGuard],
         children: [
+            {
+                path: '',
+                redirectTo: 'category',
+                pathMatch: 'full'
+            },
+
             {
                 path: 'add-category',
                 loadComponent: () =>
@@ -83,5 +91,6 @@ export const routes: Routes = [
                         .then(c => c.DeleteBlogpost),
             },
         ],
+
     },
 ];
